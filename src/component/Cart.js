@@ -1,11 +1,11 @@
 import React from 'react';
 import './Cart.css';
 
-function Cart({cart}) {
+function Cart({cart, children}) {
   let productPrice = 0;
   let shipping = 0;
   cart.forEach(prd => {
-    productPrice = productPrice + prd.price;
+    productPrice = productPrice + prd.price * prd.quantity;
   });
 
   if (productPrice > 35) {
@@ -22,12 +22,13 @@ function Cart({cart}) {
 
   return (
     <div className="Cart">
-      <h3>Order Summery</h3>
+      <h3 style={{textAlign: 'center'}}>Order Summery</h3>
       <h4>Items Total : {cart.length}</h4>
       <h4>Product Price : ${productPrice}</h4>
       <h4>Shipping Cost : ${shipping}</h4>
       <h4>Tax : ${tax}</h4>
       <h4>Total Cost : ${(productPrice + shipping + tax).toFixed(2)}</h4>
+      { children }
     </div>
   )
 }
