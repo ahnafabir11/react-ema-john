@@ -5,7 +5,7 @@ import { faShoppingCart } from '@fortawesome/free-solid-svg-icons';
 import { Link } from 'react-router-dom';
 
 function Product({product, handleAddProduct, showAddToCart}) {
-  const {key, name, img, seller, stock, price, features} = product;
+  const { key, name, img, seller, stock, price} = product;
   return (
     <div className="Product">
       <div className="product_img">
@@ -29,16 +29,14 @@ function Product({product, handleAddProduct, showAddToCart}) {
             }
           </div>
 
-          <div>
+          {/* <div>
             <h3>Features</h3>
             {
               features.map((feature, index) => {
-                return <li key={index}>
-                {feature.description} - {feature.value}
-                </li>
+                return <li key={index}>{feature.description} - {feature.value}</li>
               })
             }
-          </div>
+          </div> */}
         </div>
       </div>
     </div>

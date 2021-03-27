@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import './Shop.css';
-import fakeData from '../fakeData/index';
 import Product from './Product';
 import Cart from './Cart';
 import { addToDatabaseCart, getDatabaseCart } from '../utilities/databaseManager';
@@ -8,19 +7,26 @@ import { Link } from 'react-router-dom';
 
 
 function Shop() {
-  const first10 = fakeData.slice(0, 10);
-  const [products] = useState(first10);
+  document.title = 'Ema-Jhon | Shop';
+  const [products, setProductes] = useState([]);
   const [cart, setCart] = useState([]);
+
+  useEffect(()=> {
+    fetch(`http://localhost:5000/products`)
+      .then(res => res.json())
+      .then(data => setProductes(data))
+  },[])
 
   useEffect(() => {
     const savedCart = getDatabaseCart();
     const productKeys = Object.keys(savedCart);
-    const previousCart = productKeys.map(pdKey => {
-      const product = fakeData.find(pd => pd.key === pdKey);
-      product.quantity = savedCart[pdKey];
-      return product;
+    fetch(`http://localhost:5000/productsByKeys`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(productKeys)
     })
-    setCart(previousCart);
+      .then(res => res.json())
+      .then(data => setCart(data))
   }, [])
 
   const handleAddProduct = (product)=> {

@@ -5,7 +5,7 @@ function Cart({cart, children}) {
   let productPrice = 0;
   let shipping = 0;
   cart.forEach(prd => {
-    productPrice = productPrice + prd.price * prd.quantity;
+    productPrice = productPrice + prd.price * prd.quantity || 1;
   });
 
   if (productPrice > 35) {
