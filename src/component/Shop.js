@@ -10,12 +10,13 @@ function Shop() {
   document.title = 'Ema-Jhon | Shop';
   const [products, setProductes] = useState([]);
   const [cart, setCart] = useState([]);
+  const [search, setSearch] = useState('');
 
   useEffect(()=> {
-    fetch(`https://boiling-sands-99369.herokuapp.com/products`)
+    fetch(`https://boiling-sands-99369.herokuapp.com/products?search=${search}`)
       .then(res => res.json())
       .then(data => setProductes(data))
-  },[])
+  }, [search])
 
   useEffect(() => {
     const savedCart = getDatabaseCart();
@@ -49,9 +50,14 @@ function Shop() {
     addToDatabaseCart(product.key, product.quantity);
   }
 
+  const handleSearch = (e)=> {
+    setSearch(e.target.value);
+  }
+
   return (
     <div className="Shop">
       <div className="product_container">
+      <input type="text" className="product-search" onBlur={handleSearch} placeholder="search Product" />
       {
           products.map(pd => <Product 
             key={pd.key}

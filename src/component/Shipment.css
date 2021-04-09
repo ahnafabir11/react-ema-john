@@ -1,0 +1,9 @@
+.shipment-form {
+  display: flex;
+  flex-direction: column;
+  margin: 10px;
+}
+
+.shipment-form > input {
+  margin: 5px 0;
+}

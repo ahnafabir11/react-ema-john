@@ -24,11 +24,20 @@ export const handleGoogleSignIn = () => {
         photo: photoURL,
         success: true
       }
+      setUserToken();
       return signedInUser;
     })
     .catch(error => {
       console.log(error.message);
     })
+}
+
+const setUserToken = ()=> {
+  firebase.auth().currentUser.getIdToken(true).then((idToken)=> {
+    sessionStorage.setItem('token', idToken)
+  }).catch(function (error) {
+    // Handle error
+  });
 }
 
 // facebook sign in

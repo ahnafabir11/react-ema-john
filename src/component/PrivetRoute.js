@@ -4,12 +4,11 @@ import { UserContext } from '../App';
 
 function PrivetRoute({children, ...rest}) {
   const [logedInUser] = useContext(UserContext)
-  console.log(rest);
   return (
     <Route
       {...rest}
       render={({ location }) =>
-        logedInUser.email ? (
+        (logedInUser.email || sessionStorage.getItem('token')) ? (
           children
         ) : (
           <Redirect
